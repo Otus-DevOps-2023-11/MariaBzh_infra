@@ -1,6 +1,6 @@
 # Выполнено ДЗ №
 
- - [ ] Основное ДЗ
+ - [x] Основное ДЗ
  - [ ] Задание со *
 
 ## В процессе сделано:
@@ -13,13 +13,15 @@
  - В директории [.github](../.github) cоздана директория [workflows](workflows)
  - В директории [.github](../.github) добавлен файл [auto_assign.yml](auto_assign.yml)
  - В директории [workflows](workflows) добавлены файлы [auto_assign.yml](workflows/auto_assign.yml) и [run-tests.yml](workflows/run-tests.yml)
+ - Починка теста [test.py](../play-travis/test.py)
 
 ## Как запустить проект:
- - Например, запустить команду X в директории Y
+ - Запустить файл [test.py](../play-travis/test.py) выполнив команду `python3 play-travis/test.py` (Python 3.x)
 
 ## Как проверить работоспособность:
- - Проверить pre-commit hook можно выполнив команды из корня проекта ``git add .`` и ``git commit -m '<commit massega>'``
+ - Проверить pre-commit hook можно выполнив команды из корня проекта `git add .` и `git commit -m '<commit massega>'`
+ - Проверка Github Actions в репозитории проекта во вкладке [Actions](https://github.com/Otus-DevOps-2023-11/MariaBzh_infra/actions)
 
 ## PR checklist
- - [ ] Выставил label с номером домашнего задания
- - [ ] Выставил label с темой домашнего задания
+ - [x] Починен упавший воркфлоу
+ - [x] Выставилен pull-request 'Play travis'
