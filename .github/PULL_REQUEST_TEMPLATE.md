@@ -31,7 +31,7 @@
   ```
   (Предварителбно нужно добавить приватный ключ в ssh агент авторизации: `ssh-add ~/.ssh/appuser`)
 - Подключиться к `someinternalhost` в одну строку через `bastion` можно через алиас: `ssh someinternalhost`
-- На сервере bastion установлены и запущены `pritunl` и `mongod` (см. [setupvpn.sh](../vpn/setupvpn.sh)) Установить клиент OpenVPN и импортировать файл конфигурации [otus_test_vpn-server.ovpn](../vpn/cloud-bastion.ovpn).
+- На сервере bastion установлены и запущены `pritunl` и `mongod` (см. [setupvpn.sh](../vpn/setupvpn.sh)) Установить клиент OpenVPN и импортировать файл конфигурации [cloud-bastion.ovpn](../vpn/cloud-bastion.ovpn).
   После подключения к VPN подключится к `someinternalhost` можно будет по внутреннемуу IP:
   ``` text
   ssh -i ~/.ssh/appuser appuser@10.128.0.15
