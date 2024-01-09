@@ -1,27 +1,62 @@
-# Выполнено ДЗ №
-
+# Выполнено ДЗ Знакомство с облачной инфраструктурой Yandex.Cloud
  - [x] Основное ДЗ
- - [ ] Задание со *
+ - [x] Задание со *
 
 ## В процессе сделано:
- - Создана директория [.github](../.github)
- - В директорию [.github](../.github) добавлен файл [PULL_REQUEST_TEMPLATE.md](PULL_REQUEST_TEMPLATE.md)
- - Установлена утилита [pre-commit](https://pre-commit.com/)
- - В корень проекта добавлен файл [.pre-commit-config.yaml](../.pre-commit-config.yaml)
- - Создана директория [play-travis](../play-travis)
- - В директории [play-travis](../play-travis) добавлен файл [test.py](../play-travis/test.py)
- - В директории [.github](../.github) cоздана директория [workflows](workflows)
- - В директории [.github](../.github) добавлен файл [auto_assign.yml](auto_assign.yml)
- - В директории [workflows](workflows) добавлены файлы [auto_assign.yml](workflows/auto_assign.yml) и [run-tests.yml](workflows/run-tests.yml)
- - Починка теста [test.py](../play-travis/test.py)
+ - Создана учетная запись в Yandex.Cloud
+ - Создан каталог infra
+ - Сгенерированы пары ключей при помощи утилиты `ssh-keygen`
+ - Созданы в веб-интерфейсе инстансов две ВМ:
+   - `bastion`
+   - `someinternalhost` (без публичного адреса)
+ - Выполнено подключение к ним по SSH:
+   - из локальной консоли по публичному IPv4
+   - сквозное подклечение через bastion (SSH Agent Forwarding)
+ - На bastion выполнена установка 
+ - Установлен pritunl на bastion, запущен и настроен, поднят vpn сервер через интерфейс
+ - Создана организация, пользователь, сервер (сервер привязан к организации)
+ - Скачен файл конфигурации *.ovpn
+ - Установлен клиент OpenVPN, импортирован файл *.ovpn
+ - Подключен VPN (логин, пароль, PIN поользователя)
+ - Сформирован README.md
 
 ## Как запустить проект:
- - Запустить файл [test.py](../play-travis/test.py) выполнив команду `python3 play-travis/test.py` (Python 3.x)
+- Подключиться к `bastion` можно при помощи команды:
+  ``` text
+  ssh -i ~/.ssh/appuser appuser@158.160.63.14
+  ```
+- Подключиться к `someinternalhost` в одну строку через `bastion` можно при помощи команды:
+  ``` text
+  ssh -i ~/.ssh/appuser -A -J appuser@158.160.63.14 appuser@10.128.0.15
+  ```
+  (Предварителбно нужно добавить приватный ключ в ssh агент авторизации: `ssh-add ~/.ssh/appuser`)
+- Подключиться к `someinternalhost` в одну строку через `bastion` можно через алиас: `ssh someinternalhost`
+- На сервере bastion установлены и запущены `pritunl` и `mongod` (см. [setupvpn.sh](../vpn/setupvpn.sh)) Установить клиент OpenVPN и импортировать файл конфигурации [cloud-bastion.ovpn](../vpn/cloud-bastion.ovpn).
+  После подключения к VPN подключится к `someinternalhost` можно будет по внутреннемуу IP:
+  ``` text
+  ssh -i ~/.ssh/appuser appuser@10.128.0.15
+  ```
 
 ## Как проверить работоспособность:
- - Проверить pre-commit hook можно выполнив команды из корня проекта `git add .` и `git commit -m '<commit massega>'`
- - Проверка Github Actions в репозитории проекта во вкладке [Actions](https://github.com/Otus-DevOps-2023-11/MariaBzh_infra/actions)
+- Подключиться к `bastion` можно при помощи команды:
+  `ssh -t -i ~/.ssh/appuser appuser@158.160.63.14`
+- Подключиться к `someinternalhost` в одну строку через `bastion` можно при помощи команды:
+  `ssh -t -i ~/.ssh/appuser -A appuser@158.160.63.14 ssh appuser@10.128.0.15`
+  (Предварителбно нужно добавить приватный ключ в ssh агент авторизации: `ssh-add ~/.ssh/appuser`)
+- Подключиться к `someinternalhost` в одну строку через `bastion` можно через алиас: `ssh someinternalhost`
+- Установить клиент OpenVPN и импортировать файл конфигурации [cloud-bastion.ovpn](../vpn/cloud-bastion.ovpn).
+  После подключения к VPN-сети подключится к `someinternalhost` можно будет по внутреннему IP:
+  ``` text
+  ssh -i ~/.ssh/appuser appuser@10.128.0.15
+  ```
 
 ## PR checklist
- - [x] Починен упавший воркфлоу
- - [x] Выставилен pull-request 'Play travis'
+- [x] создана ВМ с публичным IP (`bastion`)
+- [x] создана ВМ без публичного IP (`someinternalhost`)
+- [x] выполнено подключение с локальной машины на `bastion`
+- [x] выполнено подключение с `bastion` на `someinternalhost` при помощи SSH Agent Forwarding
+- [x] сфоормирован alias для подключеения к `someinternalhost`
+- [x] поднят VPN сервер на `bastion` (Pritunl)
+- [x] сгенерирована конфигурация VPN-клиента
+- [x] выполнено подключение к VPN-сети
+- [x] проверен доступ по VPN-сети к `someinternalhost` по внутреннему IP
