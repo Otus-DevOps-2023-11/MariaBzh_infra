@@ -45,3 +45,33 @@ ssh someinternalhost
 
 При помощи сервиса [nip.io](https://nip.io/) можно решить проблему с самоподписанным сертификатом:
 домен вида `158.160.63.14.nip.io` переадресует на `158.160.63.14`
+
+# Деплой тестового приложениā
+
+```text
+testapp_IP = 158.160.55.97
+testapp_port = 9292
+```
+
+Команда для запуска создания образа с конфигурацией [init.yaml](./init.yaml):
+  ```text
+  yc compute instance create \
+  --name reddit-app \
+  --hostname reddit-app \
+  --cores 2 \
+  --memory=4 \
+  --create-boot-disk image-folder-id=standard-images,image-family=ubuntu-1604-lts,size=10GB \
+  --network-interface subnet-name=default-ru-central1-a,nat-ip-version=ipv4 \
+  --metadata serial-port-enable=1 \
+  --metadata-from-file user-data=./init.yaml
+  ```
+| Флаг                | Описание                                        |
+|---------------------|-------------------------------------------------|
+| name                | Наименование инстанса                           |
+| hostname            | Имя хоста                                       |
+| cores               | Кол-во ядер ЦП                                  |
+| memory              | Память                                          |
+| create-boot-disk    | Создание загрухочного дика с параметрами        |
+| network-interface   | Сетевой интерфейс                               |
+| metadata            | Список ключей для обработки                     |
+| metadata-from-file  | Список ключей для обработки из указанного файла |
