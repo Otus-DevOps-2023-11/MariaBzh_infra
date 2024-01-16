@@ -1,0 +1,23 @@
+#cloud-config
+package_update: true
+packages:
+  - ruby-full
+  - ruby-bundler
+  - build-essential
+  - mongodb
+  - git
+users:
+  - name: appuser
+    gecos: Admin User
+    shell: /bin/bash
+    groups: users,admin
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    lock_passwd: true
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDjxVmWGIARA4kv0UWJGRy/T2F4T5tBUVwtmrWqIHCAYESJ4MUDxux+RDC9jNVgyG1mGj5V+uZKP79KzP4UjpfOeyK1XaB3PpvAjFdSaRdiHJI/dhwCeZpNmNSkbkFFicfTjAfwZlCvV2kHhm/QBxxIV0AxvPdSOC/xJfpk7zH0BGgCSOE+JfiaAJfKIGEIJjbsbAh38+l9hia5Rjsx+u5k4N16q6e4pUm1tK1fSyJDrgBGcSeT/bowaFEGS3Mw9EF4b5jwSjmj1NcNFhl3tjMMJZWsxmncoFPMtyqr5E8xgmY/zwe0YCUoiieGBCflo8/9RSQjqrZi5ssTKGer0OhhrRGwgue3D9qHU4b2iDEPsb1tnnLbxKBl2GhFwS9cPtbEJhmt3SO1T5ttPi5+qOlgMZKczgnOMIvYPvMM6fQbkQoiGEv5LOFQ9wwa+vtj1ca/dh+mo5tUEgomDxT2y1C21yvUISQMh6eptxPZNg6GANzh7Oih3C2QVWNkyELGh2c= appuser
+runcmd:
+  - cd /home/yc-user/
+  - git clone -b monolith https://github.com/express42/reddit.git
+  - cd reddit
+  - bundle install
+  - puma -d

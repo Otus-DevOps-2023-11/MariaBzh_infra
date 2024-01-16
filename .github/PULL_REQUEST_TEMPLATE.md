@@ -1,62 +1,65 @@
-# Выполнено ДЗ Знакомство с облачной инфраструктурой Yandex.Cloud
+# Выполнено ДЗ Деплой тестового приложениā
  - [x] Основное ДЗ
  - [x] Задание со *
 
 ## В процессе сделано:
- - Создана учетная запись в Yandex.Cloud
- - Создан каталог infra
- - Сгенерированы пары ключей при помощи утилиты `ssh-keygen`
- - Созданы в веб-интерфейсе инстансов две ВМ:
-   - `bastion`
-   - `someinternalhost` (без публичного адреса)
- - Выполнено подключение к ним по SSH:
-   - из локальной консоли по публичному IPv4
-   - сквозное подклечение через bastion (SSH Agent Forwarding)
- - На bastion выполнена установка 
- - Установлен pritunl на bastion, запущен и настроен, поднят vpn сервер через интерфейс
- - Создана организация, пользователь, сервер (сервер привязан к организации)
- - Скачен файл конфигурации *.ovpn
- - Установлен клиент OpenVPN, импортирован файл *.ovpn
- - Подключен VPN (логин, пароль, PIN поользователя)
- - Сформирован README.md
+ - Файлы [cloud-bastion.ovpn](../VPN/cloud-bastion.ovpn) и [setupvpn.sh](../VPN/setupvpn.sh) 
+   были перенесены в папку [VPN](../VPN)
+ - Был установлен и инициализирован настроен `yc CLI`
+ - При помощи `CLI` был создан инстанс `reddit-app`
+ - Установлен `Ruby` и `Bundler`
+ - Установлена `MongoDB`
+ - Установлен `git`
+ - Скачено приложение [reddit](https://github.com/express42/reddit/tree/monolith) при помощи команды `git clone`
+ - Проверена работоспособность приложения
+ - Сформирован скрипт [install_ruby.sh](../install_ruby.sh) по установке `Ruby`
+ - Сформирован скрипт [install_mongodb.sh](../install_mongodb.sh) по установке `MongoDB`
+ - Сформирован скрипт [deploy.sh](../deploy.sh) по скачиванию кода [reddit](https://github.com/express42/reddit/tree/monolith), установки
+   зависимостей через `bundler` и запуску приложения
+ - Сформирован [startup.yaml](../init.yaml) скрипт, который будет запускаться при создании инстанса
+ - Дополнен файл [README.md](../README.md)
 
 ## Как запустить проект:
-- Подключиться к `bastion` можно при помощи команды:
-  ``` text
-  ssh -i ~/.ssh/appuser appuser@158.160.63.14
-  ```
-- Подключиться к `someinternalhost` в одну строку через `bastion` можно при помощи команды:
-  ``` text
-  ssh -i ~/.ssh/appuser -A -J appuser@158.160.63.14 appuser@10.128.0.15
-  ```
-  (Предварителбно нужно добавить приватный ключ в ssh агент авторизации: `ssh-add ~/.ssh/appuser`)
-- Подключиться к `someinternalhost` в одну строку через `bastion` можно через алиас: `ssh someinternalhost`
-- На сервере bastion установлены и запущены `pritunl` и `mongod` (см. [setupvpn.sh](../vpn/setupvpn.sh)) Установить клиент OpenVPN и импортировать файл конфигурации [cloud-bastion.ovpn](../vpn/cloud-bastion.ovpn).
-  После подключения к VPN подключится к `someinternalhost` можно будет по внутреннемуу IP:
-  ``` text
-  ssh -i ~/.ssh/appuser appuser@10.128.0.15
+- Команда для запуска создания образа с конфигурацией [init.yaml](../init.yaml):
+  ```text
+  yc compute instance create \
+  --name reddit-app \
+  --hostname reddit-app \
+  --cores 2 \
+  --memory=4 \
+  --create-boot-disk image-folder-id=standard-images,image-family=ubuntu-1604-lts,size=10GB \
+  --network-interface subnet-name=default-ru-central1-a,nat-ip-version=ipv4 \
+  --metadata serial-port-enable=1 \
+  --metadata-from-file user-data=./init.yaml
   ```
 
 ## Как проверить работоспособность:
-- Подключиться к `bastion` можно при помощи команды:
-  `ssh -t -i ~/.ssh/appuser appuser@158.160.63.14`
-- Подключиться к `someinternalhost` в одну строку через `bastion` можно при помощи команды:
-  `ssh -t -i ~/.ssh/appuser -A appuser@158.160.63.14 ssh appuser@10.128.0.15`
-  (Предварителбно нужно добавить приватный ключ в ssh агент авторизации: `ssh-add ~/.ssh/appuser`)
-- Подключиться к `someinternalhost` в одну строку через `bastion` можно через алиас: `ssh someinternalhost`
-- Установить клиент OpenVPN и импортировать файл конфигурации [cloud-bastion.ovpn](../vpn/cloud-bastion.ovpn).
-  После подключения к VPN-сети подключится к `someinternalhost` можно будет по внутреннему IP:
-  ``` text
-  ssh -i ~/.ssh/appuser appuser@10.128.0.15
+- Подключится к инстансу `reddit-app` можно при помощи команды
+  ```text
+  ssh -i ~/.ssh/appuser appuser@$PUBLIC_IP_ADDRESS
   ```
-
+- Приложение будет доступно по адресу `http:\\$PUBLIC_IP_ADDRESS:$PORT`.    
+  Порт можно получить выполнив команду
+  ```text
+  ps aux | grep puma
+  ```
+  или
+  ```text
+  ps -e -o command | grep -a puma | head -1
+  ```
+  
 ## PR checklist
-- [x] создана ВМ с публичным IP (`bastion`)
-- [x] создана ВМ без публичного IP (`someinternalhost`)
-- [x] выполнено подключение с локальной машины на `bastion`
-- [x] выполнено подключение с `bastion` на `someinternalhost` при помощи SSH Agent Forwarding
-- [x] сфоормирован alias для подключеения к `someinternalhost`
-- [x] поднят VPN сервер на `bastion` (Pritunl)
-- [x] сгенерирована конфигурация VPN-клиента
-- [x] выполнено подключение к VPN-сети
-- [x] проверен доступ по VPN-сети к `someinternalhost` по внутреннему IP
+- [x] Код из прошлого задания перенесен в указанные папки
+- [x] Выполнена установка и настройка `yc CLI`
+- [x] Выполнена инициализация инстанса `reddit-app` при помощи `CLI`
+- [x] Выполнена установка необходимых пакетов в ручную:
+  - `Ruby` и `Bundler`
+  - `MongoDB`
+  - `git`
+- [x] Скачено, развернуто и запущено приложение [reddit](https://github.com/express42/reddit/tree/monolith)
+- [x] Сформированы скрипты для установки необходимых пакетов:
+  - [install_ruby.sh](../install_ruby.sh)
+  - [install_mongodb.sh](../install_mongodb.sh)
+- [x] Сформирован скрипт для скачевания и запуска приложения:
+  - [deploy.sh](../deploy.sh)
+- [x] Сформирован конфиг [init.yaml](../init.yaml) для автоматического развертывания и запуска приложения при создании инстанса `reddit-app`
