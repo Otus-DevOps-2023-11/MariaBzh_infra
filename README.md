@@ -49,7 +49,7 @@ ssh someinternalhost
 # Деплой тестового приложениā
 
 ```text
-testapp_IP = 158.160.55.97
+testapp_IP = 158.160.63.133
 testapp_port = 9292
 ```
 
