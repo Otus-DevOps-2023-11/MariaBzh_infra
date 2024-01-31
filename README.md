@@ -53,7 +53,7 @@ testapp_IP = 158.160.63.133
 testapp_port = 9292
 ```
 
-Команда для запуска создания образа с конфигурацией [init.yaml](./init.yaml):
+Команда для запуска создания образа с конфигурацией [init.yaml](config-scripts/init.yaml):
   ```text
   yc compute instance create \
   --name reddit-app \
