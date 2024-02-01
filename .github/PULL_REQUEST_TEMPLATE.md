@@ -52,4 +52,3 @@
 - [x] Создан скрипт [create-reddit-vm.sh](../config-scripts/create-reddit-vm.sh) сборки ВМ на основе шаблона [immutable.json](../packer/immutable.json)
 - [x] Создан файл [reddit.service](../packer/files/reddit.service)
 - [x] Создан скрипт [reddit_service.sh](../packer/scripts/reddit_service.sh)
-
