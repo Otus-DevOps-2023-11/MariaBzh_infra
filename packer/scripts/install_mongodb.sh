@@ -1,12 +1,9 @@
 #!/bin/bash
 
-apt update
-apt install mongodb -y
+while ps ax | grep -i [a]pt ; do sleep 10; done;
 
-echo 'Start mongodb...'
-systemctl start mongodb
-echo 'DONE'
+apt-get update
+apt-get install mongodb -y
 
-echo 'Set automatic start mongodb...'
-systemctl enable mongodb
-echo 'DONE'
+sudo systemctl start mongodb
+sudo systemctl enable mongodb
