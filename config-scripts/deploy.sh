@@ -15,4 +15,4 @@ echo 'Start app...'
 puma -d
 
 echo 'App started at...'
-ps -e -o command | grep -a puma | head -1
+echo $(ps -e -o command | grep -a puma | head -1)

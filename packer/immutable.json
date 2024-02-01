@@ -31,6 +31,16 @@
       "type": "shell",
       "script": "scripts/deploy.sh",
       "execute_command": "sudo {{.Path}}"
+    },
+    {
+      "type": "file",
+      "source": "files/reddit.service",
+      "destination": "/tmp/reddit.service"
+    },
+    {
+      "type": "shell",
+      "script": "scripts/reddit_service.sh",
+      "execute_command": "sudo {{.Path}}"
     }
   ]
 }

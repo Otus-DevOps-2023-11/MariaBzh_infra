@@ -14,6 +14,8 @@
  - Создан файл-шаблон Packer [ubuntu16.json](../packer/ubuntu16.json)
  - Создан файл-шаблон Packer [immutable.json](../packer/immutable.json)
  - Создан скрипт [create-reddit-vm.sh](../config-scripts/create-reddit-vm.sh) сборки ВМ на основе шаблона [immutable.json](../packer/immutable.json)
+ - Создан файл [reddit.service](../packer/files/reddit.service)
+ - Создан скрипт [reddit_service.sh](../packer/scripts/reddit_service.sh)
 
 ## Как запустить проект:
  - Собрать образ ВМ можно при помощи команды:
@@ -24,8 +26,8 @@
    или запустив команду:
    ```text
       yc compute instance create \
-        --name reddit-app \
-        --hostname reddit-app \
+        --name reddit \
+        --hostname reddit \
         --memory=2 \
         --create-boot-disk image-family=reddit-full,size=10GB \
         --network-interface subnet-name=default-ru-central1-a,nat-ip-version=ipv4 \
@@ -48,3 +50,6 @@
 - [x] Создан файл-шаблон Packer [ubuntu16.json](../packer/ubuntu16.json)
 - [x] Создан файл-шаблон Packer [immutable.json](../packer/immutable.json)
 - [x] Создан скрипт [create-reddit-vm.sh](../config-scripts/create-reddit-vm.sh) сборки ВМ на основе шаблона [immutable.json](../packer/immutable.json)
+- [x] Создан файл [reddit.service](../packer/files/reddit.service)
+- [x] Создан скрипт [reddit_service.sh](../packer/scripts/reddit_service.sh)
+
