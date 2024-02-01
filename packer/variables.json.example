@@ -1,8 +1,8 @@
 {
-  "folder_id": "b1g8f5lm212bm1qv4j2o",
-  "source_image_family": "ubuntu-1604-lts",
+  "folder_id": "a1b2c3d4",
+  "source_image_family": "ubuntu",
   "service_account_key_file": "./key.json",
-  "platform_id": "standard-v1",
+  "image_family": "reddit-base",
   "instance_cores": "2",
   "instance_mem_gb": "2",
   "disk_size_gb": "10"
