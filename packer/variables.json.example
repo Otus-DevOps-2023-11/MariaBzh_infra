@@ -1,0 +1,9 @@
+{
+    "folder_id": "a1b2c3d4e5",
+    "source_image_family": "ubuntu",
+    "service_account_key_file": "./key.json",
+    "image-family": "raddit-base",
+    "instance_cores": "2",
+    "instance_mem_gb": "2",
+    "disk_size_gb": "10"
+}

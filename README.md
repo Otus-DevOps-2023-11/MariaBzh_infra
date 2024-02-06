@@ -53,7 +53,7 @@ testapp_IP = 158.160.63.133
 testapp_port = 9292
 ```
 
-Команда для запуска создания образа с конфигурацией [init.yaml](./init.yaml):
+Команда для запуска создания образа с конфигурацией [init.yaml](config-scripts/init.yaml):
   ```text
   yc compute instance create \
   --name reddit-app \
@@ -75,3 +75,16 @@ testapp_port = 9292
 | network-interface   | Сетевой интерфейс                               |
 | metadata            | Список ключей для обработки                     |
 | metadata-from-file  | Список ключей для обработки из указанного файла |
+
+## Сборка образов VM при помощи Packer помощи Packer
+
+Сервисный аккаунт `packer-user` с ролью `edit`
+
+Файл-шаблон Packer [ubuntu16.json](./packer/ubuntu16.json) - содержит описание образа VM
+с `ruby` и `mongodb`
+
+Файл-шаблон Packer [immutable.json](./packer/immutable.json) - содержит описание образа VM
+с `ruby`, `mongodb` и приложением `reddit`
+
+Cкрипт [create-reddit-vm.sh](./config-scripts/create-reddit-vm.sh) - создает VM на основании
+шаблона Packer [immutable.json](./packer/immutable.json)
