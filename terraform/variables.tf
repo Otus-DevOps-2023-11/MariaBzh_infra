@@ -1,16 +1,13 @@
 variable "cloud_id" {
   description = "Cloud"
-  default     = "b1gqiitqjak6fh4abe4v"
 }
 
 variable "folder_id" {
   description = "Folder"
-  default     = "b1g8f5lm212bm1qv4j2o"
 }
 
 variable "zone" {
   description = "Zone"
-  default     = "ru-central1-a"
 }
 
 variable "public_key_path" {
@@ -20,7 +17,6 @@ variable "public_key_path" {
 
 variable "image_id" {
   description = "Disk image"
-  default     = "fd8jce2s5dpe2aphglak"
 }
 
 variable "subnet_id" {
@@ -34,10 +30,15 @@ variable "service_account_key_file" {
 }
 
 variable "private_key_file" {
-  default = "Connection private key"
+  description = "Connection private key"
 }
 
 variable "yandex_compute_instance_app_name" {
   description = "Yandex compute instance app name"
   default     = "reddit-app"
+}
+
+variable "vm_count" {
+  description = "Amount of VM instances"
+  default     = "1"
 }
