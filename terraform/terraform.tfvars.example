@@ -1,0 +1,6 @@
+cloud_id                         = "b1gqiitqjak6fh4abe4v"
+folder_id                        = "b1g8f5lm212bm1qv4j2o"
+zone                             = "ru-central1-a"
+image_id                         = "fd8jce2s5dpe2aphglak"
+private_key_file                 = "C:/Users/maria/.ssh/ubuntu"
+yandex_compute_instance_app_name = "reddit-app"
