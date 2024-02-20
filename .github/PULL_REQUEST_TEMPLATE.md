@@ -1,47 +1,56 @@
-# Выполнено ДЗ Практика IaC с использованием Terraform использованием
+# Выполнено ДЗ Принципы организации инфраструктурного кода инфраструктурного кода и работа над и работа над инфраструктурой в инфраструктурой в команде на примере команде на примере Terraform
  - [x] Основное ДЗ
  - [x] Задание со *
 
 ## В процессе сделано:
- - Создан и сконфигурирован файл [main.tf](../terraform/main.tf)
- - Создан и сконфигурирован файл [variables.tf](../terraform/variables.tf)
- - Создан и сконфигурирован файл [terraform.tfvars](../terraform/terraform.tfvars) 
-   (в репозиторий - [terraform.tfvars.example](../terraform/terraform.tfvars.example))
- - Создан и сконфигурирован файл [outputs.tf](../terraform/outputs.tf)
- - Создан скрипт [deploy.sh](../terraform/files/deploy.sh)
- - Создан файл [puma.service](../terraform/files/puma.service)
- - Создан и настроен [yandex_lb_network_load_balancer](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/lb_network_load_balancer) в [lb.tf](../terraform/lb.tf)
- - Дополнен [README.md](../README.md)
+ - Конфигурация разбита по файлам [app.tf](../terraform/app.tf) и [db.tf](../terraform/db.tf)
+ - Настроен конфигаруционный файл сети [vpc.tf](../terraform/vpc.tf)
+ - Созданы модули [app](../terraform/modules/app) и [db](../terraform/modules/db)
+ - Создана инфраструкура для окружений [stage](../terraform/stage) и [prod](../terraform/prod)
+ - Напроен удаленный бекенд [backend.tf](../terraform/stage/backend.tf) для хранения [terraform.tfstate](../terraform/stage/terraform.tfstate)
+ - Запущено приложение с передачей переменной окружения `DATABASE_URL`
+ - Отредактирован файл [README.md](../README.md)
 
 ## Как запустить проект:
- - Из директории [terraform](../terraform) выполнить команду 
-   ```text
-      terraform apply -auto-approve
+- Собрать необходимые образы ВМ можно из директории [packer](../packer) при помощи команд:
+  ```text
+     packer build -var-file variables.json db.json
    ```
-
-## Как проверить работоспособность:
- - Из директории [terraform](../terraform) выполнить команду
+  ```text
+     packer build -var-file variables.json app.json
+   ```
+ - Из директории [terraform](../terraform/stage) или [terraform](../terraform/prod) выполнить команду
   ```text
      terraform apply -auto-approve
   ```
- - После создания ВМ приложение должно быть доступно по адресам:
+ - После создания ВМ приложение должно быть доступно по адресу:
+ ```text
+    external_ip_address_app:9292
+ ```
+ Значение `external_ip_address_app` переменной можно посмотреть, используя команду:
+ ```text
+    terraform output 
+ ```
+
+## Как проверить работоспособность:
+ - Из директории [terraform](../terraform/stage) или [terraform](../terraform/prod) выполнить команду
    ```text
-      external_ip_address_app:9292
-      external_ip_address_lb:9292
+      terraform apply -auto-approve
    ```
-   Значение `external_ip_address_app` и `external_ip_address_lb` переменных можно посмотреть, используя команду:
-   ```text
-      terraform output 
-   ```
- - После выключения 1й из ВМ по адресу `external_ip_address_lb` приложение должно быть доступно
-   
+  - После создания ВМ приложение должно быть доступно по адресу:
+ ```text
+    external_ip_address_app:9292
+ ```
+Значение `external_ip_address_app` переменной можно посмотреть, используя команду:
+ ```text
+    terraform output 
+ ```
   
 ## PR checklist
-  - [x] Создан и сконфигурирован файл [main.tf](../terraform/main.tf)
-  - [x] Создан и сконфигурирован файл [variables.tf](../terraform/variables.tf)
-  - [x] Создан и сконфигурирован файл [terraform.tfvars](../terraform/terraform.tfvars) (в репозиторий - [terraform.tfvars.example](../terraform/terraform.tfvars.example))
-  - [x] Создан и сконфигурирован файл [outputs.tf](../terraform/outputs.tf)
-  - [x] Создан скрипт [deploy.sh](../terraform/files/deploy.sh)
-  - [x] Создан файл [puma.service](../terraform/files/puma.service)
-  - [x] Создан и настроен [yandex_lb_network_load_balancer]() в [lb.tf](../terraform/lb.tf)
-  - [x] Дополнен [README.md](../README.md)
+ - [x] Конфигурация разбита по файлам [app.tf](../terraform/app.tf) и [db.tf](../terraform/db.tf)
+ - [x] Настроен конфигаруционный файл сети [vpc.tf](../terraform/vpc.tf)
+ - [x] Созданы модули [app](../terraform/modules/app) и [db](../terraform/modules/db)
+ - [x] Создана инфраструкура для окружений [stage](../terraform/stage) и [prod](../terraform/prod)
+ - [x] Напроен удаленный бекенд [backend.tf](../terraform/stage/backend.tf) для хранения [terraform.tfstate](../terraform/stage/terraform.tfstate)
+ - [x] Запущено приложение с передачей переменной окружения `DATABASE_URL`
+ - [x] Отредактирован файл [README.md](../README.md) 

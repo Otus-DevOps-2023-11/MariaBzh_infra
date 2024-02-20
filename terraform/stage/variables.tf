@@ -12,7 +12,7 @@ variable "zone" {
 
 variable "public_key_path" {
   description = "Path to the public key used for ssh access"
-  default     = "C:/Users/maria/.ssh/ubuntu.pub"
+  default     = "~/.ssh/ubuntu.pub"
 }
 
 variable "image_id" {
@@ -21,16 +21,17 @@ variable "image_id" {
 
 variable "subnet_id" {
   description = "Subnet"
-  default     = "e9bj6mmfnn2uhv9f157s"
+  default     = "subnet_id"
 }
 
 variable "service_account_key_file" {
   description = "key.json"
-  default     = "./files/key.json"
+  default     = "key.json"
 }
 
 variable "private_key_file" {
   description = "Connection private key"
+  default = "C:/Users/maria/.ssh/ubuntu"
 }
 
 variable "yandex_compute_instance_app_name" {
@@ -41,4 +42,14 @@ variable "yandex_compute_instance_app_name" {
 variable "vm_count" {
   description = "Amount of VM instances"
   default     = "1"
+}
+
+variable "app_disk_image" {
+  description = "Disk image for reddit app"
+  default     = "reddit-app-base"
+}
+
+variable "db_disk_image" {
+  description = "Disk image for reddit db"
+  default     = "reddit-db-base"
 }
