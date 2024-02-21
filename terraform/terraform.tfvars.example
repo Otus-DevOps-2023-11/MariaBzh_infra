@@ -1,0 +1,7 @@
+cloud_id                         = "test"
+folder_id                        = "test"
+zone                             = "ru-central1-a"
+image_id                         = "test"
+private_key_file                 = "~/.ssh/ubuntu"
+yandex_compute_instance_app_name = "reddit-app"
+vm_count                         = 2
