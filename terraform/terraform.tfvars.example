@@ -5,3 +5,5 @@ image_id                         = "test"
 private_key_file                 = "~/.ssh/ubuntu"
 yandex_compute_instance_app_name = "reddit-app"
 vm_count                         = 2
+app_disk_image                   = "reddit-app-base"
+db_disk_image                   = "reddit-db-base"
