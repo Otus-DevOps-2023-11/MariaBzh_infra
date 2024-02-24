@@ -1,0 +1,8 @@
+cloud_id                         = "test"
+folder_id                        = "test"
+zone                             = "ru-central1-a"
+image_id                         = "test"
+private_key_file                 = "~/.ssh/ubuntu"
+vm_count                         = 1
+app_disk_image                   = "reddit-app-base"
+db_disk_image                    = "reddit-db-base"

@@ -3,7 +3,7 @@ terraform {
     endpoints = {
       s3 = "http://storage.yandexcloud.net"
     }
-    bucket   = "bucket-stage"
+    bucket   = "bucket"
     region   = "ru-central1"
     key      = "terraform.tfstate"
 

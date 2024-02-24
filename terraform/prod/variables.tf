@@ -34,11 +34,6 @@ variable "private_key_file" {
   default = "~/.ssh/ubuntu"
 }
 
-variable "yandex_compute_instance_app_name" {
-  description = "Yandex compute instance app name"
-  default     = "reddit-app"
-}
-
 variable "vm_count" {
   description = "Amount of VM instances"
   default     = "1"
