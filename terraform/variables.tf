@@ -31,7 +31,7 @@ variable "service_account_key_file" {
 
 variable "private_key_file" {
   description = "Connection private key"
-  default = "~/.ssh/ubuntu"
+  default     = "~/.ssh/ubuntu"
 }
 
 variable "vm_count" {

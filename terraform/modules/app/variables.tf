@@ -13,7 +13,7 @@ variable "subnet_id" {
 
 variable "private_key_file" {
   description = "Connection private key"
-  default = "~/.ssh/ubuntu"
+  default     = "~/.ssh/ubuntu"
 }
 
 variable "db_address" {

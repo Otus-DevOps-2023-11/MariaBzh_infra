@@ -25,7 +25,7 @@ resource "yandex_compute_instance" "app" {
   }
 
   provisioner "file" {
-    content     = templatefile("../modules/app/files/puma.service", {  database_url = "${var.db_address}:27017" })
+    content     = templatefile("../modules/app/files/puma.service", { database_url = "${var.db_address}:27017" })
     destination = "/tmp/puma.service"
   }
 
