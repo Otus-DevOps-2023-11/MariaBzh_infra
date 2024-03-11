@@ -103,3 +103,15 @@ Cкрипт [create-reddit-vm.sh](./config-scripts/create-reddit-vm.sh) - соз
 Настроен конфигаруционный файл сети [vpc.tf](terraform/vpc.tf), 
 изучена работа с модулями, сконфигурирован удаленный бекенд файл [backend.tf](terraform/stage/backend.tf) для хранения состояния [terraform.tfstate](terraform/stage/terraform.tfstate),
 запущено приложение в реорганизованной инфраструктуре.
+
+# Docker
+
+## Технология контейнеризации. контейнеризации. Введение в Docker Введение в Docker
+
+Знакомство с `Docker` и `Docker machine` для работы в облаке (`YC`).
+В рамках задания был создан инстанс ВМ в `YC` и инициализирована докер хост система при помощи `Docker machine`, 
+собран образ с приложением [reddit](https://github.com/express42/reddit.git) и запущен контейнер в облаке.
+
+Локально был запущен контейнер на основе образа `ubuntu` и изучены основные команды `docker` (`run`, `ps`, `images`, `start`, `attach`, `exec`, `commit`, `inspect`, `kill`, `stop`, `system df`, `rm`, `rmi`)
+
+Выполнен `push` образа `mariabzh/otus-reddit:1.0` с приложением [reddit](https://github.com/express42/reddit.git) в [Docker Hub](https://hub.docker.com/).

@@ -1,0 +1,7 @@
+REPOSITORY                                TAG           IMAGE ID       CREATED          SIZE
+mariabzh/ubuntu-tmp-file                  latest        8588ae6bde21   19 seconds ago   63.2MB
+ubuntu                                    18.04         f9a80a55f492   9 months ago     63.2MB
+hello-world                               latest        d2c94e258dcb   10 months ago    13.3kB
+
+Образ - это шиблон с параметрами, набором инструкций, который будет загружен в контейнер
+Контейнер - это автаномно работающий (запускаемый) инстанс с определенными параметрами

@@ -1,56 +1,39 @@
-# Выполнено ДЗ Принципы организации инфраструктурного кода инфраструктурного кода и работа над и работа над инфраструктурой в инфраструктурой в команде на примере команде на примере Terraform
+# Выполнено ДЗ Технология контейнеризации. контейнеризации. Введение в Docker Введение в Docker
  - [x] Основное ДЗ
- - [x] Задание со *
+ - [] Задание со *
 
 ## В процессе сделано:
- - Конфигурация разбита по файлам [app.tf](../terraform/app.tf) и [db.tf](../terraform/db.tf)
- - Настроен конфигаруционный файл сети [vpc.tf](../terraform/vpc.tf)
- - Созданы модули [app](../terraform/modules/app) и [db](../terraform/modules/db)
- - Создана инфраструкура для окружений [stage](../terraform/stage) и [prod](../terraform/prod)
- - Напроен удаленный бекенд [backend.tf](../terraform/stage/backend.tf) для хранения [terraform.tfstate](../terraform/stage/terraform.tfstate)
- - Запущено приложение с передачей переменной окружения `DATABASE_URL`
- - Отредактирован файл [README.md](../README.md)
+ - Создан файл [docker-1.log](../docker-monolith/docker-1.log) с выхлопом команды `docker images` после создания `image`
+ - Созданы файлы конфигурации для создания `Docker` образа с приложением [reddit](https://github.com/express42/reddit.git):
+   - [db_config](../docker-monolith/db_config)
+   - [Dockerfile](../docker-monolith/Dockerfile)
+   - [mongod.conf](../docker-monolith/mongod.conf)
+   - [start.sh](../docker-monolith/start.sh)
+ - Установлен `Docker machine` для работы с `Docker` в облаке `YC`
+ - Cоздаст инстанс ВМ в `YC` и инициализирована докер хост система
+ - Собран образ с приложением [reddit](https://github.com/express42/reddit.git) и запущен контейнер в облаке
+ - Выполнен `push` образа `mariabzh/otus-reddit:1.0` с приложением [reddit](https://github.com/express42/reddit.git) в [Docker Hub](https://hub.docker.com/)
 
 ## Как запустить проект:
-- Собрать необходимые образы ВМ можно из директории [packer](../packer) при помощи команд:
+- Запустить контейнер из образа `mariabzh/otus-reddit:1.0`:
   ```text
-     packer build -var-file variables.json db.json
-   ```
-  ```text
-     packer build -var-file variables.json app.json
-   ```
- - Из директории [terraform](../terraform/stage) или [terraform](../terraform/prod) выполнить команду
-  ```text
-     terraform apply -auto-approve
+     docker run --name reddit -d -p 9292:9292 mariabzh/otus-reddit:1.0
   ```
- - После создания ВМ приложение должно быть доступно по адресу:
- ```text
-    external_ip_address_app:9292
- ```
- Значение `external_ip_address_app` переменной можно посмотреть, используя команду:
- ```text
-    terraform output 
- ```
 
 ## Как проверить работоспособность:
- - Из директории [terraform](../terraform/stage) или [terraform](../terraform/prod) выполнить команду
-   ```text
-      terraform apply -auto-approve
-   ```
-  - После создания ВМ приложение должно быть доступно по адресу:
- ```text
-    external_ip_address_app:9292
- ```
-Значение `external_ip_address_app` переменной можно посмотреть, используя команду:
- ```text
-    terraform output 
- ```
+ - После старта контейнера `reddit` приложение будет доступно по ссылке `http://localhost:9292/` 
+
+Запустить контейнер можно так же на удаленной машине, например в `YC` с использованием `Docker machine`.
+Необходимо создать ВМ в `YC` и инициализировать окружение `Docker`. 
   
 ## PR checklist
- - [x] Конфигурация разбита по файлам [app.tf](../terraform/app.tf) и [db.tf](../terraform/db.tf)
- - [x] Настроен конфигаруционный файл сети [vpc.tf](../terraform/vpc.tf)
- - [x] Созданы модули [app](../terraform/modules/app) и [db](../terraform/modules/db)
- - [x] Создана инфраструкура для окружений [stage](../terraform/stage) и [prod](../terraform/prod)
- - [x] Напроен удаленный бекенд [backend.tf](../terraform/stage/backend.tf) для хранения [terraform.tfstate](../terraform/stage/terraform.tfstate)
- - [x] Запущено приложение с передачей переменной окружения `DATABASE_URL`
- - [x] Отредактирован файл [README.md](../README.md) 
+ - [x] Создан файл [docker-1.log](../docker-monolith/docker-1.log) с выхлопом команды `docker images` после создания `image`
+ - [x] Созданы файлы конфигурации для создания `Docker` образа с приложением [reddit](https://github.com/express42/reddit.git):
+ - [x] [db_config](../docker-monolith/db_config)
+ - [x] [Dockerfile](../docker-monolith/Dockerfile)
+ - [x] [mongod.conf](../docker-monolith/mongod.conf)
+ - [x] [start.sh](../docker-monolith/start.sh)
+ - [x] Установлен `Docker machine` для работы с `Docker` в облаке `YC`
+ - [x] Cоздаст инстанс ВМ в `YC` и инициализирована докер хост система
+ - [x] Собран образ с приложением [reddit](https://github.com/express42/reddit.git) и запущен контейнер в облаке
+ - [x] Выполнен `push` образа `mariabzh/otus-reddit:1.0` с приложением [reddit](https://github.com/express42/reddit.git) в [Docker Hub](https://hub.docker.com/)
